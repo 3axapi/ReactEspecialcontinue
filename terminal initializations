@@ -1,3 +1,5 @@
 npm init --yes
 npm create vite . -- --template react
 npm install express mongoose
+npm install concurrently
+npm install cors
