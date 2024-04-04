@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import AddUserForm from './AddUserForm';
 import './App.css';
 
 function App() {
@@ -23,10 +24,11 @@ function App() {
     if (!confirmation) return
 
     try {
-      const res = await fetch(`http://localhost:8000/api/users/:${userID}`, {method: "DELETE"});
+      const res = await fetch(`http://localhost:8000/api/users/${userID}`, {method: "DELETE"});
       if (!res.ok) throw new Error("Error response is not ok");
+      fetchDate()
     } catch (err) {
-      console.log()
+      console.log(`There was a problem with deleting the user: ${err.message}`)
     }
   }
 
@@ -34,11 +36,11 @@ function App() {
     <>
       <h1>Lista użytkowników</h1>
       <h2>Users:</h2>
-      <button onClick={fetchDate}></button>
+      <button onClick={fetchDate}>FetchMee</button>
       <ul style={{listStyle: "none"}}>
         {
-          userList.map(user => {
-            return (<li key={user.id}>
+          userList.map(user => { return (
+            <li key={user.id} onClick={deleteUser}>
               imię: {user.name},
               email: {user.email},
               wiek: {user.age}
@@ -46,6 +48,7 @@ function App() {
           })
         }
       </ul>
+      <AddUserForm />
     </>
   );
 }
