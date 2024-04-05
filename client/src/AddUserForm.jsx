@@ -9,7 +9,8 @@ const AddUserForm = () => {
         try {
             const response = await fetch("http://localhost:8000/api/users", {
                 method: "POST",
-                header: {"Content-type":"application/json"}
+                header: {"Content-type":"application/json"},
+                body: JSON.stringify(newUser) // będzie JSONem
             });
         } catch (err) {
             console.error(`Some problems with youe fetch operation: ${{message: err.message}}`);
