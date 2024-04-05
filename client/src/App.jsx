@@ -5,8 +5,8 @@ import './App.css';
 function App() {
   const [userList, setUserList] = useState([]);
 
-  async function fetchDate() {
-    consle.log("I am fetching");
+  async function fetchDate(event) {
+    console.log("I am fetching");
     try {
       const res = await fetch("http://localhost:8000/api/users", {method: "GET"});
       if (!res.ok) throw Error(`network responce was not ok: ${res.status}`);
@@ -36,7 +36,7 @@ function App() {
     <>
       <h1>Lista użytkowników</h1>
       <h2>Users:</h2>
-      <button onClick={fetchDate}>FetchMee</button>
+      <button onClick={fetchDate}>Fetch</button>
       <ul style={{listStyle: "none"}}>
         {
           userList.map(user => { return (
@@ -48,7 +48,7 @@ function App() {
           })
         }
       </ul>
-      <AddUserForm />
+      <AddUserForm updateUsersList={fetchDate}/>
     </>
   );
 }

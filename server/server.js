@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
     age: Number
 });
 
-const User = mongoose.model("users", userSchema);
+const User = mongoose.model("User", userSchema);
  
 app.get("/api/users", async (req, res) => {
     try {
@@ -40,6 +40,17 @@ app.delete("/api/users/:id", async (req, res) => {
             return res.status(404).json({message: "User not found"});
     } catch (err) {
         res.status(500).json({message: err.message});
+    }
+});
+
+app.post("/api/users/", async (req, res) => {
+    try {
+        const newUser = new User(req.body);
+        await newUser.save();
+        res.status(201).json(newUser);
+    } catch (err) {
+        console.log(`post error: ${err.message}`);
+        res.status(400).json(err);
     }
 });
  

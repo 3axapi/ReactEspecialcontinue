@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const AddUserForm = () => {
+const AddUserForm = ({updateUsersList}) => {
     const [newUser, setNewUser] = useState({name: "", email: "", age: 0});
 
     async function submitHandler(event) {
@@ -12,6 +12,11 @@ const AddUserForm = () => {
                 header: {"Content-type":"application/json"},
                 body: JSON.stringify(newUser) // będzie JSONem
             });
+
+            if (!response) throw new Error(`Network response was not ok ${response.status}`);
+            const data = await response.json();
+            console.log(`user added ${data}`);
+            setNewUser({name: "", email: "", age: 0});
         } catch (err) {
             console.error(`Some problems with youe fetch operation: ${{message: err.message}}`);
         }
