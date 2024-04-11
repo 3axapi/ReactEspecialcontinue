@@ -1,4 +1,31 @@
-const express = require("express");
+const app = require("./app");
+const mongoose = require("mongoose");
+const PORT = 8000;
+
+app.listen(PORT, () => console.log("Server express is running", PORT));
+ 
+process.on("SIGINT", async () => {
+    console.log("Closing MongoDB");
+
+    try {
+        await mongoose.disconnect();
+        console.log("MongoDB connection closed");
+    } catch(err) {
+        console.log(`Closing MongoDB Error ${err.message}`);
+    } finally {
+        process.exit();
+    }
+
+    /*mongoose.disconnect()
+        .then(() => console.log("MongoDB connection closed"))
+        .finally(() => process.exit());*/
+});
+
+
+
+
+
+/*const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
@@ -61,4 +88,4 @@ process.on("SIGINT", () => {
     mongoose.disconnect()
         .then(() => console.log("MongoDB connection closed"))
         .finally(() => process.exit())
-}); 
+}); */
