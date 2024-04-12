@@ -13,13 +13,18 @@ const AddUserForm = ({updateUsersList}) => {
                 body: JSON.stringify(newUser) // będzie JSONem
             });
 
-            if (!response) throw new Error(`Network response was not ok ${response.status}`);
-            const data = await response.json();
+            if (!response.ok) throw new Error(`Network response was not ok ${response.status}`);
+            const data = await response;
             console.log(`user added ${data}`);
             setNewUser({name: "", email: "", age: 0});
         } catch (err) {
             console.error(`Some problems with youe fetch operation: ${{message: err.message}}`);
         }
+    }
+
+    function onChangeHandler(event, title) {
+        console.log(event.target.value);
+        setNewUser({...newUser, name: event.target.value})
     }
 
     return (
@@ -29,7 +34,7 @@ const AddUserForm = ({updateUsersList}) => {
             <input type="text"
                 placeholder="wprowadź imię użytkownika"
                 value={newUser.name}
-                onChange={e => setNewUser({...newUser, name: e.target.value})} />
+                onChange={onChangeHandler /*e => setNewUser({...newUser, name: e.target.value})*/} />
             <input type="email"
                 placeholder="email"
                 value={newUser.email}

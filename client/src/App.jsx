@@ -26,7 +26,7 @@ function App() {
     try {
       const res = await fetch(`http://localhost:8000/api/users/${userID}`, {method: "DELETE"});
       if (!res.ok) throw new Error("Error response is not ok");
-      fetchDate()
+      fetchDate();
     } catch (err) {
       console.log(`There was a problem with deleting the user: ${err.message}`)
     }
@@ -40,7 +40,7 @@ function App() {
       <ul style={{listStyle: "none"}}>
         {
           userList.map(user => { return (
-            <li key={user.id} onClick={deleteUser}>
+            <li key={user._id} onClick={() => deleteUser(user._id)}>
               imię: {user.name},
               email: {user.email},
               wiek: {user.age}
