@@ -22,12 +22,13 @@ router.post("/", async (req, res) => {
     }
 });
 
-router.delete(":id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
     const userID = req.params.id;
     try {
         const deleteUser = await User.findByIdAndDelete(userID);
         if (!deleteUser)
             return res.status(404).json({message: "User not found"});
+        res.json({message:"User successfully deleted"})
     } catch (err) {
         res.status(500).json({message: err.message});
     }
