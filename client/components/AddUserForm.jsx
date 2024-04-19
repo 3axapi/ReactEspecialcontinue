@@ -6,6 +6,16 @@ const AddUserForm = ({updateUsersList}) => {
     async function submitHandler(event) {
         event.preventDefault();
 
+        const formData = new FormData();
+        formData.append("email", newUser.email);
+        formData.append("name", newUser.name);
+        formData.append("age", newUser.age);
+
+        console.log("FormData value");
+        for (let [key, values] of formData.entries) {
+            console.log(`${key}: ${values}`);   
+        }
+
         try {
             const response = await fetch("http://localhost:8000/api/users", {
                 method: "POST",
