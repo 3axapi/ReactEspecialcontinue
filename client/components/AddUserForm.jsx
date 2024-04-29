@@ -12,7 +12,7 @@ const AddUserForm = ({updateUsersList}) => {
         formData.append("age", newUser.age);
 
         console.log("FormData value");
-        for (let [key, values] of formData.entries) {
+        for (let [key, values] of formData.entries()) {
             console.log(`${key}: ${values}`);   
         }
 
